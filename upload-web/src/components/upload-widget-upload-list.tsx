@@ -1,6 +1,7 @@
 import { UploadWidgetUploadItem } from "./upload-widget-upload-item";
 
 export function UploadWidgetUploadList() {
+    const isEmptyList = false;
     return (
         <div className="px-3 flex flex-col gap-3">
             <span className="text-xs font-medium">
@@ -8,10 +9,16 @@ export function UploadWidgetUploadList() {
                 <span className="text-zinc-400">{2}</span>
             </span>
 
-            <div className="space-y-2">
-                <UploadWidgetUploadItem />
-                <UploadWidgetUploadItem />
-            </div>
+            {isEmptyList ? (
+                <span className="text-xs text-zinc-400">
+                    No files uploaded
+                </span>
+            ) : (
+                <div className="space-y-2">
+                    <UploadWidgetUploadItem />
+                    <UploadWidgetUploadItem />
+                </div>
+            )}
         </div>
     )
 }
