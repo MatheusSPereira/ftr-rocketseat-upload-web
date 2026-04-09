@@ -23,6 +23,7 @@ export function UploadWidgetUploadList() {
                             <UploadWidgetUploadItem
                                 key={uploadId}
                                 upload={upload}
+                                uploadId={uploadId}
                             />
                         ))
                     }
