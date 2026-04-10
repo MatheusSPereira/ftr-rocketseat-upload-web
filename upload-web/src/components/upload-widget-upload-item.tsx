@@ -36,8 +36,10 @@ export function UploadWidgetUploadItem({ upload, uploadId }: UploadWidgetUploadI
                     <span className="line-through">{formatBytes(upload.originalSizeInBytes)}</span>
                     <span className="size-1 rounded-full bg-zinc-700" />
                     <span>
-                        300KB
-                        <span className="text-green-400 ml-1">-94%</span>
+                        {formatBytes(upload.compressedSizeInBytes ?? 0)}
+                        {upload.compressedSizeInBytes &&
+                            <span className="text-green-400 ml-1">-{Math.round((upload.originalSizeInBytes - upload.compressedSizeInBytes) * 100 / upload.originalSizeInBytes)}%</span>
+                        }
                     </span>
                     <span className="size-1 rounded-full bg-zinc-700" />
 
@@ -59,9 +61,11 @@ export function UploadWidgetUploadItem({ upload, uploadId }: UploadWidgetUploadI
             </Progress.Root>
 
             <div className="absolute top-2.5 right-2.5 flex items-center gap-1">
-                <Button disabled={upload.status !== 'success'} size="icon-sm">
-                    <Download strokeWidth={1.5} className="size-4" />
-                    <span className="sr-only">Download compressed image</span>
+                <Button aria-disabled={upload.status !== 'success'} size="icon-sm" asChild>
+                    <a href={upload.remoteUrl} target="_blank" rel="noopener noreferrer" download>
+                        <Download strokeWidth={1.5} className="size-4" />
+                        <span className="sr-only">Download compressed image</span>
+                    </a>
                 </Button>
 
                 <Button
